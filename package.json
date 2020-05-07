@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "ncc build src/index.js --minify"
+    "build": "node ./scripts/build.js"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",

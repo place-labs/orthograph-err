@@ -7,7 +7,7 @@ inputs:
     default: '{,!(node_modules)/**/}*.md'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'index.js'
 branding:
   icon: 'edit-2'
   color: 'white'

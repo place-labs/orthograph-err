@@ -2,23 +2,18 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const {TextLintEngine} = require("textlint");
 
-function getFiles() {
-  let path = core.getInput('path', { required: true });
-  return [path];
-}
-
-async function lint(files) {
-  let engine = new TextLintEngine();
-  let results = await engine.executeOnFiles(files);
+async function lint(path) {
+  const engine = new TextLintEngine();
+  const results = await engine.executeOnFiles([path]);
   if (engine.isErrorResults(results)) {
-    let output = engine.formatResults(results);
+    const output = engine.formatResults(results);
     core.setFailed(output);
   }
   return results;
 }
 
-function annotate(annotations) {
-  github.checks.update({
+function annotate(api, annotations) {
+  api.checks.update({
     ...github.context.repo(),
     check_run_id: process.env.GITHUB_RUN_ID,
     output: {
@@ -35,9 +30,9 @@ const level = {
   2: 'failure'
 }
 
-function updateChecks(results) {
+function updateChecks(api, results) {
   results.map((result) => {
-    annotate(result.messages.map((message) => {
+    annotate(api, result.messages.map((message) => {
       ({
         path: result.filePath,
         start_line: message.line,
@@ -54,9 +49,15 @@ function updateChecks(results) {
 
 async function run() {
   try {
-    let files = getFiles();
-    let result = await lint(files);
-    Promise.all(updateChecks(result));
+    const path     = core.getInput('path', { required: true });
+    const gh_token = core.getInput('gh_token', { required: true });
+
+    const result = await lint(path);
+
+    if (result.length > 0) {
+      const api = new github.GitHub(gh_token);
+      Promise.all(updateChecks(api, result));
+    }
   } catch (error) {
     core.setFailed(error.message);
   }

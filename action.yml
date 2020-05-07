@@ -5,6 +5,9 @@ inputs:
     description: 'file or glob pattern to proofread'
     required: false
     default: '{,!(node_modules)/**/}*.md'
+  gh_token:
+    description: 'api token'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'

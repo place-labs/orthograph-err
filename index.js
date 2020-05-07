@@ -1,15 +1,10 @@
-const path   = require('path');
 const core   = require('@actions/core');
 const github = require('@actions/github');
-const glob   = require('@actions/glob');
-
 const TextLintEngine = require("textlint").TextLintEngine;
 
-async function getFiles() {
-  let workspace = process.env['GITHUB_WORKSPACE'];
-  let globPath  = core.getInput('path', { required: true });
-  let globber   = await glob.create(path.resolve(workspace, globPath));
-  return globber.glob();
+function getFiles() {
+  let path = core.getInput('path', { required: true });
+  return [path];
 }
 
 async function lint(files) {
@@ -24,7 +19,7 @@ async function lint(files) {
 
 async function run() {
   try {
-    let files = await getFiles();
+    let files = getFiles();
     core.warning(files);
     lint(files);
   } catch (error) {

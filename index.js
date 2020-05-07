@@ -14,7 +14,7 @@ async function lint(path) {
 
 function annotate(api, annotations) {
   api.checks.update({
-    ...github.context.repo(),
+    ...github.context.repo,
     check_run_id: process.env.GITHUB_RUN_ID,
     output: {
       title: 'Textlint',

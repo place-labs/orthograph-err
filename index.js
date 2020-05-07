@@ -15,13 +15,24 @@ async function lint(files) {
     let output = engine.formatResults(results);
     core.setFailed(output);
   }
+
+  return results;
+}
+
+function updateChecks(results) {
+  let context = github.context;
+  console.log(context);
+  /*github.check.update({
+    ...context.repo,
+    
+  });*/
 }
 
 async function run() {
   try {
-    let files = getFiles();
-    core.warning(files);
-    lint(files);
+    let files  = getFiles();
+    let result = await lint(files);
+    updateChecks(result);
   } catch (error) {
     core.setFailed(error.message);
   }

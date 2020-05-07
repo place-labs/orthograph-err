@@ -24,24 +24,19 @@ function annotate(api, annotations) {
   });
 }
 
-const level = {
-  0: 'notice',
-  1: 'warning',
-  2: 'failure'
-}
-
 function updateChecks(api, results) {
+  const level = ['notice', 'warning', 'failure'];
   results.map((result) => {
     annotate(api, result.messages.map((message) => {
       ({
-        path: result.filePath,
-        start_line: message.line,
-        end_line: message.line,
-        start_column: message.column,
-        end_column: message.column,
+        path:             result.filePath,
+        start_line:       message.line,
+        end_line:         message.line,
+        start_column:     message.column,
+        end_column:       message.column,
         annotation_level: level[message.severity],
-        message: message.message,
-        title: message.ruleID,
+        message:          message.message,
+        title:            message.ruleId,
       })
     }));
   });

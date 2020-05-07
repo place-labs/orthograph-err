@@ -1,0 +1,13 @@
+name: 'Proofreader'
+description: 'Automated docs editor. Robotic grammar enthusiast.'
+inputs:
+  path:
+    description: 'file or glob pattern to proofread'
+    required: false
+    default: '{,!(node_modules)/**/}*.md'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'edit-2'
+  color: 'white'

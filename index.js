@@ -1,3 +1,4 @@
+const {relative} = require('path');
 const core = require('@actions/core');
 const github = require('@actions/github');
 const {TextLintEngine} = require("textlint");
@@ -31,6 +32,8 @@ async function annotator(context, token, name) {
     ))
   ));
 
+  const workspace = process.env.GITHUB_WORKSPACE;
+
   const level = ['notice', 'warning', 'failure'];
 
   return (result) => {
@@ -41,7 +44,7 @@ async function annotator(context, token, name) {
         title: 'Textlint',
         summary: 'Linter results',
         annotations: result.messages.map(message => ({
-          path:             result.filePath,
+          path:             relative(workspace, result.filePath),
           start_line:       message.line,
           end_line:         message.line,
           start_column:     message.column,

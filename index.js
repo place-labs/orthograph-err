@@ -2,23 +2,35 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const {TextLintEngine} = require("textlint");
 
+/**
+ * Run Textlint over a file (or glob pattern). Returns a list of TextLintResult
+ * and a flag for if any of these are erros.
+ */
 async function lint(path) {
-  const engine = new TextLintEngine();
+  const engine  = new TextLintEngine();
   const results = await engine.executeOnFiles([path]);
-  if (engine.isErrorResults(results)) {
-    const output = engine.formatResults(results);
-    core.setFailed(output);
-  }
-  return results;
+  const has_err = engine.isErrorResults(results);
+  return [results, has_err];
 }
 
-function updateChecks(api, results) {
+/**
+ * Builds a annotator for the current context. The return function accepts a
+ * single TextLintResult and publishes this as a set of annotations against the
+ * associated files on Github.
+ */
+function annotator(context, token) {
+  const api   = new github.GitHub(token);
+  const check = process.env.GITHUB_RUN_ID
+
   const level = ['notice', 'warning', 'failure'];
 
-  results.map(result => {
+  return (result) => {
+    console.log(`check_id: ${check}`);
+    console.log(result);
+
     api.checks.update({
-      ...github.context.repo,
-      check_run_id: process.env.GITHUB_RUN_ID,
+      ...context.repo,
+      check_run_id: check,
       output: {
         title: 'Textlint',
         summary: 'Linter results',
@@ -33,20 +45,24 @@ function updateChecks(api, results) {
           title:            message.ruleId,
         })),
       },
-    })
-  });
+    });
+  }
 }
 
 async function run() {
   try {
-    const path     = core.getInput('path', { required: true });
-    const gh_token = core.getInput('gh_token', { required: true });
+    const path  = core.getInput('path', { required: true });
+    const token = core.getInput('gh_token', { required: true });
 
-    const result = await lint(path);
+    const [results, err] = await lint(path);
 
-    if (result.length > 0) {
-      const api = new github.GitHub(gh_token);
-      Promise.all(updateChecks(api, result));
+    if (err) {
+      core.setFailed('Proofreading issues found');
+    }
+
+    if (results.length > 0) {
+      const annotate = annotator(github.context, token);
+      await Promise.all(results.map(annotate));
     }
   } catch (error) {
     core.setFailed(error.message);

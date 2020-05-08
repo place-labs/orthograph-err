@@ -2,11 +2,14 @@ name: 'Proofreader'
 description: 'Automated docs editor. Robotic grammar enthusiast.'
 inputs:
   path:
-    description: 'file or glob pattern to proofread'
+    description: 'File or glob pattern to proofread'
     required: false
     default: '{,!(node_modules)/**/}*.md'
-  gh_token:
-    description: 'api token'
+  gh-token:
+    description: 'Github API token'
+    required: true
+  check-name:
+    description: 'Name of the workflow step to attach annotations too'
     required: true
 runs:
   using: 'node12'

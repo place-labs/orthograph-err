@@ -18,19 +18,25 @@ async function lint(path) {
  * single TextLintResult and publishes this as a set of annotations against the
  * associated files on Github.
  */
-function annotator(context, token) {
-  const api   = new github.GitHub(token);
-  const check = process.env.GITHUB_RUN_ID
+async function annotator(context, token, name) {
+  const api = new github.GitHub(token);
+
+  const check = await api.checks.listForRef({
+    ...context.repo,
+    ref: context.ref
+  }).then(response => (
+    response.data.check_runs.find(check => (
+      check.name == name &&
+      check.head_sha == context.sha
+    ))
+  ));
 
   const level = ['notice', 'warning', 'failure'];
 
   return (result) => {
-    console.log(`check_id: ${check}`);
-    console.log(result);
-
     api.checks.update({
       ...context.repo,
-      check_run_id: check,
+      check_run_id: check.id,
       output: {
         title: 'Textlint',
         summary: 'Linter results',
@@ -45,14 +51,15 @@ function annotator(context, token) {
           title:            message.ruleId,
         })),
       },
-    });
+    }).then(console.log);
   }
 }
 
 async function run() {
   try {
     const path  = core.getInput('path', { required: true });
-    const token = core.getInput('gh_token', { required: true });
+    const token = core.getInput('gh-token', { required: true });
+    const name  = core.getInput('check-name', { required: true });
 
     const [results, err] = await lint(path);
 
@@ -61,7 +68,7 @@ async function run() {
     }
 
     if (results.length > 0) {
-      const annotate = annotator(github.context, token);
+      const annotate = await annotator(github.context, token, name);
       await Promise.all(results.map(annotate));
     }
   } catch (error) {

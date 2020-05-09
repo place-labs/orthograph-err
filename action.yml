@@ -8,9 +8,6 @@ inputs:
   gh-token:
     description: 'Github API token'
     required: true
-  check-name:
-    description: 'Name of the workflow step to attach annotations too'
-    required: true
 runs:
   using: 'node12'
   main: 'src/index.js'

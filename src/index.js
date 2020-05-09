@@ -1,20 +1,17 @@
-const core = require('@actions/core');
+const { setFailed } = require('@actions/core');
+const { context }   = require('@actions/github');
 
 const annotate = require('./annotate');
-const context  = require('./context');
-const inputs   = require('./inputs');
 const linter   = require('./linter');
+const { path } = require('./inputs');
 
 async function run() {
   try {
-    const rules = linter.engine.textlintrcDescriptor.rule.descriptors.map(descriptor => descriptor.id);
-    console.log(rules);
-
-    const results = await linter.run(inputs.path);
-    const runId   = await context.getRunId();
-    await annotate(context.repo, runId, results);
+    const results  = await linter.run(path);
+    const head_sha = context.payload.after;
+    const response = await annotate(context.repo, head_sha, results);
   } catch (error) {
-    core.setFailed(error.message);
+    setFailed(error.message);
   }
 }
 

@@ -1,5 +1,6 @@
 const { relative } = require('path');
-const checks = require('./checks');
+const { rules }    = require('./linter');
+const { checks }   = require('./github');
 
 // TexLint message severity -> GitHub annotation level
 const levels = ['notice', 'warning', 'failure'];
@@ -25,15 +26,40 @@ const resultToAnnotations = result => {
   return result.messages.map(toAnnotation);
 }
 
-const annotate = (repo, check_run_id, results) =>
-  checks.update({
+const conclusion = annotations => {
+  if (annotations.length > 0) {
+    if (annotations.some(ann => ann.annotation_level == 'failure')) {
+      return 'failure';
+    } else {
+      return 'neutral';
+    }
+  } else {
+    return 'success';
+  }
+}
+
+const createCheck = (repo, head_sha, name, annotations) =>
+  checks.create({
     ...repo,
-    check_run_id,
+    head_sha,
+    name,
+    status: 'completed',
+    conclusion: conclusion(annotations),
     output: {
-      title: 'Textlint',
+      title: `TextLint [${name}]`,
       summary: 'Linter results',
-      annotations: results.flatMap(resultToAnnotations),
+      annotations,
     },
   });
+
+const annotate = (repo, sha, results) => {
+  const annotations = results.flatMap(resultToAnnotations);
+
+  const requests = rules.map(rule => (
+    createCheck(repo, sha, rule, annotations.filter(ann => ann.title == rule))
+  ));
+
+  return Promise.all(requests);
+};
 
 module.exports = annotate;

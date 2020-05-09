@@ -1,13 +1,14 @@
 name: 'Proofreader'
-description: 'Automated docs editor. Robotic grammar enthusiast.'
+description: 'Automated docs reviewer. Robotic grammar enthusiast.'
 inputs:
   path:
     description: 'File or glob pattern to proofread'
     required: false
     default: '{,!(node_modules)/**/}*.md'
-  gh-token:
-    description: 'Github API token'
+  token:
+    description: 'Github API token to use for publishing check results'
     required: true
+    default: '${{ github.token }}'
 runs:
   using: 'node12'
   main: 'src/index.js'

@@ -1,4 +1,4 @@
-name: 'Proofreader'
+name: 'Orthograph-err'
 description: 'Automated docs reviewer. Robotic grammar enthusiast.'
 inputs:
   path:

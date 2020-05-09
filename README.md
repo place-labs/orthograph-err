@@ -1,8 +1,12 @@
-# Proofreader
+# Orthograph-err
 
-This action runs a set of proofreader tools over documentation, user guides and
-other text content using the beautiful, flexible
-[textlint](https://textlint.github.io/).
+> An orthography is a set of conventions for writing a language. It includes
+> norms of spelling, hyphenation, capitalization, word breaks, emphasis, and
+> punctuation.
+
+This action runs a set of proofreading tools over documentation, user guides and
+other text content using the wonderfully flexible
+[textlint](https://textlint.github.io/), flagging any orthograpic errors.
 
 ## Usage
 
@@ -10,7 +14,7 @@ Your repository should contain a [textlint configuration
 file](https://textlint.github.io/docs/configuring.html).
 
 ```yaml
-- uses: place-labs/proofreader@master
+- uses: place-labs/orthograph-err@v1
   with:
     # File path with the content to review.
     # Default: {,!(node_modules)/**/}*.md
@@ -44,7 +48,7 @@ For an example of this action in use, see
 - [write-good](https://github.com/textlint-rule/textlint-rule-write-good)
 
 To add rules engines [fork this
-repo](https://github.com/place-labs/proofreader/fork), then `npm install
+repo](https://github.com/place-labs/orthograph-err/fork), then `npm install
 <rule>`.
 
 If it's a commonly useful rule, PR's are open <3.

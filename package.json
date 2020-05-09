@@ -1,7 +1,8 @@
 {
-  "name": "proofreader",
+  "name": "orthograph-err",
   "version": "1.0.0",
   "description": "",
+  "repository": "https://github.com/place-labs/orthograph-err",
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {

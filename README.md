@@ -39,6 +39,7 @@ For an example of this action in use, see
 - [no-empty-section](https://github.com/azu/textlint-rule-no-empty-section)
 - [no-exclamation-question-mark](https://github.com/azu/textlint-rule-no-exclamation-question-mark)
 - [period-in-list-item](https://github.com/textlint-rule/textlint-rule-period-in-list-item)
+- [rousseau](https://github.com/textlint-rule/textlint-rule-rousseau)
 - [terminology](https://github.com/sapegin/textlint-rule-terminology)
 - [write-good](https://github.com/textlint-rule/textlint-rule-write-good)
 

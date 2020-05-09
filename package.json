@@ -6,7 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.4",
-    "@actions/github": "^2.1.1",
+    "@actions/github": "^2.2.0",
     "@actions/glob": "^0.1.0",
     "textlint": "^11.6.3",
     "textlint-rule-alex": "^1.3.1",
@@ -15,6 +15,7 @@
     "textlint-rule-no-empty-section": "^1.1.0",
     "textlint-rule-no-exclamation-question-mark": "^1.0.2",
     "textlint-rule-period-in-list-item": "^0.3.2",
+    "textlint-rule-rousseau": "^1.4.6",
     "textlint-rule-terminology": "^2.1.4",
     "textlint-rule-write-good": "^1.6.2"
   }

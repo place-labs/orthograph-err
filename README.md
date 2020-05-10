@@ -1,13 +1,19 @@
 # Orthograph-err
 
 > An orthography is a set of conventions for writing a language.
-> It includes norms of spelling, hyphenation, capitalization, word breaks, emphasis, and punctuation.
+> It includes norms of spelling, hyphenation, capitalisation, word breaks, emphasis, and punctuation.
 
-This action runs a set of proofreading tools over documentation, user guides and other text content using the wonderfully flexible [textlint](https://textlint.github.io/), flagging any orthograpic errors.
+A GitHub Action for proofreading content.
+It provides feedback on documentation, user guides and other text content within your project.
+Using the wonderfully flexible [TextLint](https://textlint.github.io/) any orthographic errors will appear as inline annotations.
 
 ## Usage
 
-Your repository should contain a [textlint configuration file](https://textlint.github.io/docs/configuring.html).
+Your repository should contain a [TextLint configuration file](https://textlint.github.io/docs/configuring.html).
+This defines the active rules and desired writing style.
+
+With this in place, include this action in any workflows that can need feedback.
+PR's or commits to master / release branches are a good option for this.
 
 ```yaml
 - uses: place-labs/orthograph-err@v1
@@ -24,7 +30,7 @@ Your repository should contain a [textlint configuration file](https://textlint.
     token: ''
 ```
 
-Issue will appear as inline annotations against their source.
+Issues will appear as inline annotations against their source.
 Each enabled rules engine will receive it's own check, which may used for branch protection if desired.
 
 For an example of this action in use, see [PlaceOS/docs](https://github.com/PlaceOS/docs).
@@ -33,15 +39,16 @@ For an example of this action in use, see [PlaceOS/docs](https://github.com/Plac
 
 - [alex](https://github.com/textlint-rule/textlint-rule-alex)
 - [common-misspellings](https://github.com/io-monad/textlint-rule-common-misspellings)
-- [en-capitalization](https://github.com/textlint-rule/textlint-rule-en-capitalization)
+- [en-capitalisation](https://github.com/textlint-rule/textlint-rule-en-capitalization)
 - [no-empty-section](https://github.com/azu/textlint-rule-no-empty-section)
 - [no-exclamation-question-mark](https://github.com/azu/textlint-rule-no-exclamation-question-mark)
 - [one-sentence-per-line](https://github.com/Lab41/textlint-rule-one-sentence-per-line)
 - [period-in-list-item](https://github.com/textlint-rule/textlint-rule-period-in-list-item)
 - [rousseau](https://github.com/textlint-rule/textlint-rule-rousseau)
+- [spelling](https://github.com/nzt/textlint-rule-spelling)
 - [terminology](https://github.com/sapegin/textlint-rule-terminology)
 - [write-good](https://github.com/textlint-rule/textlint-rule-write-good)
 
-To add rules engines [fork this repo](https://github.com/place-labs/orthograph-err/fork), then `npm install <rule>`.
+To add rules engines [fork this repository](https://github.com/place-labs/orthograph-err/fork), then `npm install <rule>`.
 
 If it's a commonly useful rule, PR's are open <3.

@@ -1,17 +1,13 @@
 # Orthograph-err
 
-> An orthography is a set of conventions for writing a language. It includes
-> norms of spelling, hyphenation, capitalization, word breaks, emphasis, and
-> punctuation.
+> An orthography is a set of conventions for writing a language.
+> It includes norms of spelling, hyphenation, capitalization, word breaks, emphasis, and punctuation.
 
-This action runs a set of proofreading tools over documentation, user guides and
-other text content using the wonderfully flexible
-[textlint](https://textlint.github.io/), flagging any orthograpic errors.
+This action runs a set of proofreading tools over documentation, user guides and other text content using the wonderfully flexible [textlint](https://textlint.github.io/), flagging any orthograpic errors.
 
 ## Usage
 
-Your repository should contain a [textlint configuration
-file](https://textlint.github.io/docs/configuring.html).
+Your repository should contain a [textlint configuration file](https://textlint.github.io/docs/configuring.html).
 
 ```yaml
 - uses: place-labs/orthograph-err@v1
@@ -28,12 +24,10 @@ file](https://textlint.github.io/docs/configuring.html).
     token: ''
 ```
 
-Following a run and issue will appear as inline annotations against their
-source. Each enabled rules engine will also receive it's own check, which may be
-used for configuring branch protection if desired.
+Issue will appear as inline annotations against their source.
+Each enabled rules engine will receive it's own check, which may used for branch protection if desired.
 
-For an example of this action in use, see
-[PlaceOS/docs](https://github.com/PlaceOS/docs).
+For an example of this action in use, see [PlaceOS/docs](https://github.com/PlaceOS/docs).
 
 ## Supported Rules Engines
 
@@ -42,13 +36,12 @@ For an example of this action in use, see
 - [en-capitalization](https://github.com/textlint-rule/textlint-rule-en-capitalization)
 - [no-empty-section](https://github.com/azu/textlint-rule-no-empty-section)
 - [no-exclamation-question-mark](https://github.com/azu/textlint-rule-no-exclamation-question-mark)
+- [one-sentence-per-line](https://github.com/Lab41/textlint-rule-one-sentence-per-line)
 - [period-in-list-item](https://github.com/textlint-rule/textlint-rule-period-in-list-item)
 - [rousseau](https://github.com/textlint-rule/textlint-rule-rousseau)
 - [terminology](https://github.com/sapegin/textlint-rule-terminology)
 - [write-good](https://github.com/textlint-rule/textlint-rule-write-good)
 
-To add rules engines [fork this
-repo](https://github.com/place-labs/orthograph-err/fork), then `npm install
-<rule>`.
+To add rules engines [fork this repo](https://github.com/place-labs/orthograph-err/fork), then `npm install <rule>`.
 
 If it's a commonly useful rule, PR's are open <3.

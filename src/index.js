@@ -7,8 +7,6 @@ const { path } = require('./inputs');
 
 async function run() {
   try {
-    console.log(context.payload);
-
     const results  = await linter.run(path);
     const head_sha = context.payload.after;
     const response = await annotate(context.repo, head_sha, results);

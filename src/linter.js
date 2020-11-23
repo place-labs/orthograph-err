@@ -1,4 +1,4 @@
-const { TextLintEngine } = require("textlint");
+const { TextLintEngine } = require('textlint');
 
 const engine = new TextLintEngine();
 

@@ -8,6 +8,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
+    "dictionary-en": "^3.0.1",
     "dictionary-en-au": "^2.2.1",
     "textlint": "^11.6.3",
     "textlint-rule-alex": "^3.0.0",

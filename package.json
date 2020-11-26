@@ -1,6 +1,6 @@
 {
   "name": "orthograph-err",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "",
   "repository": "https://github.com/place-labs/orthograph-err",
   "main": "src/index.js",

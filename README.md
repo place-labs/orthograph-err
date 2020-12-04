@@ -49,6 +49,10 @@ For an example of this action in use, see [PlaceOS/docs](https://github.com/Plac
 - [terminology](https://github.com/sapegin/textlint-rule-terminology)
 - [write-good](https://github.com/textlint-rule/textlint-rule-write-good)
 
-To add rules engines [fork this repository](https://github.com/place-labs/orthograph-err/fork), then `npm install <rule>`.
+## Filter Rules
+
+- [allowlist](https://github.com/textlint/textlint-filter-rule-allowlist)
+
+To add rules engines, or filters [fork this repository](https://github.com/place-labs/orthograph-err/fork), then `npm install <rule>`.
 
 If it's a commonly useful rule, PR's are open <3.

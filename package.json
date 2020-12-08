@@ -4,6 +4,9 @@
   "description": "",
   "repository": "https://github.com/place-labs/orthograph-err",
   "main": "src/index.js",
+  "bin": {
+    "textlint": "node_modules/.bin/textlint"
+  },
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6",

@@ -13,7 +13,7 @@
     "@actions/github": "^4.0.0",
     "dictionary-en": "^3.1.0",
     "dictionary-en-au": "^2.3.0",
-    "textlint": "^11.7.7",
+    "textlint": "^11.8.1",
     "textlint-filter-rule-allowlist": "^2.0.1",
     "textlint-rule-alex": "^3.0.0",
     "textlint-rule-common-misspellings": "^1.0.1",

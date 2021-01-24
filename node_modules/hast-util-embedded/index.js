@@ -1,10 +1,8 @@
 'use strict'
 
-var is = require('hast-util-is-element')
+var convert = require('hast-util-is-element/convert')
 
-module.exports = embedded
-
-var names = [
+module.exports = convert([
   'audio',
   'canvas',
   'embed',
@@ -15,8 +13,4 @@ var names = [
   'picture',
   'svg',
   'video'
-]
-
-function embedded(node) {
-  return is(node, names)
-}
+])

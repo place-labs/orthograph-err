@@ -1,3 +1,11 @@
+**This project is no longer maintained.**
+
+Usage can be simplified by using Textlint directly with [problem matchers](https://github.com/actions/toolkit/blob/2f164000dcd42fb08287824a3bc3030dbed33687/docs/problem-matchers.md).
+
+Please [see here](https://github.com/PlaceOS/docs/pull/73/commits/08376005211aadc825dc56843deb0fb1960b8895) for an example migration.
+
+---
+
 # Orthograph-err
 
 > An orthography is a set of conventions for writing a language.
